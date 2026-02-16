@@ -1,0 +1,57 @@
+project:
+  name: "yine-rule-engine"
+
+paths:
+  raw_csv: "data/raw/full_corpus.csv"
+  interim_dir: "data/interim"
+  processed_dir: "data/processed"
+  reports_dir: "data/processed/reports"
+  suspects_dir: "data/processed/reports/suspects"
+  cleaned_parquet: "data/interim/full_corpus.cleaned.parquet"
+  cleaned_csv: "data/interim/full_corpus.cleaned.csv"
+
+dataset:
+  columns:
+    yine: "yine"
+    spanish: "spanish"
+    source: "source"
+  encoding: "utf-8"
+
+reproducibility:
+  seed: 42
+  fingerprint_rows: 5000   # para hash rápido (no lee todo si no quieres)
+
+normalization:
+  unicode_form: "NFC"
+  trim_whitespace: true
+  collapse_spaces: true
+  normalize_newlines: true
+  replace_tabs: true
+
+filtering:
+  drop_empty: true
+  min_chars: 2
+  min_tokens: 2
+  max_tokens: 180
+
+  length_ratio:
+    enabled: true
+    min_ratio: 0.25
+    max_ratio: 4.0
+
+  duplicates:
+    enabled: true
+    subset: ["yine", "spanish"]   # exact duplicates
+
+alignment_checks:
+  enabled: true
+  punctuation_mismatch:
+    enabled: true
+  quote_balance:
+    enabled: true
+  paren_balance:
+    enabled: true
+
+logging:
+  level: "INFO"
+  file: "data/processed/reports/pipeline.log"

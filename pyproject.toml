@@ -1,0 +1,19 @@
+[project]
+name = "yine-rule-engine"
+version = "0.1.0"
+description = "Rule engine + corpus conditioning for Yine-Spanish ultra-low-resource MT"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.1",
+  "pyarrow>=14.0",
+  "pydantic>=2.5",
+  "PyYAML>=6.0",
+  "regex>=2023.10.3"
+]
+
+[project.scripts]
+yine-rules = "yine_rules.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
