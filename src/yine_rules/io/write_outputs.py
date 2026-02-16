@@ -3,6 +3,7 @@ Utility functions for writing outputs
 """
 from __future__ import annotations
 from pathlib import Path
+import csv
 import pandas as pd
 
 def ensure_dir(path: str | Path) -> Path:
@@ -40,4 +41,10 @@ def write_csv(df: pd.DataFrame, path: str) -> None:
     :type path: str
     """
     Path(path).parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(path, index=False, encoding="utf-8")
+    df.to_csv(
+        path,
+        index=False,
+        encoding="utf-8-sig",
+        sep=";",
+        quoting=csv.QUOTE_ALL
+    )

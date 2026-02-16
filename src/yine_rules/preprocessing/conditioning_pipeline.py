@@ -7,6 +7,7 @@ import logging
 
 from yine_rules.preprocessing.audit import run_audit
 from yine_rules.preprocessing.normalize import normalize_dataframe_text
+from yine_rules.preprocessing.structural_cleanup import clean_bible_structural_artifacts
 from yine_rules.preprocessing.filter import apply_filters
 from yine_rules.preprocessing.alignment_checks import find_alignment_suspects
 from yine_rules.io.read_corpus import read_full_corpus_csv
@@ -77,6 +78,18 @@ def run_conditioning(settings: dict) -> None:
     write_json(Path(paths["reports_dir"]) / "normalization_summary.json", norm_summary)
     log.info("Normalization done. Changed rows: %s", norm_summary["changed_rows"])
 
+    # STRUCTURAL CLEANUP (bible-specific)
+    df_cleaned_struct, cleanup_summary = clean_bible_structural_artifacts(
+        df_norm,
+        col_text=col_y,
+        col_source=col_src
+    )
+
+    write_json(Path(paths["reports_dir"]) / "structural_cleanup_summary.json", cleanup_summary)
+    log.info("Structural cleanup done.")
+
+    df_norm = df_cleaned_struct
+    
     # FILTER
     df_filt, filt_report, removed_df = apply_filters(
         df=df_norm,

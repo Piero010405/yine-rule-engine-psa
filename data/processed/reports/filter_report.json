@@ -1,0 +1,11 @@
+{
+  "start_rows": 9608,
+  "removed": {
+    "empty_row": 0,
+    "min_chars": 0,
+    "token_length": 5,
+    "length_ratio": 9,
+    "duplicate": 1
+  },
+  "end_rows": 9593
+}
