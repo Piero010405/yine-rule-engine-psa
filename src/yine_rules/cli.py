@@ -192,7 +192,12 @@ def main():
                 col_target_text=ng["columns"]["target_text"],
             )
         summary = generate_negatives(cfg)
-        log.info("gen-negatives OK: total=%s", summary["total"])
+        log.info(
+            "gen-negatives OK: positives=%s negatives=%s ratio=%.4f",
+            summary["positive_rows"],
+            summary["negative_rows"],
+            summary["ratio_actual"],
+        )
         return
 
     raise SystemExit(f"Unknown command: {args.cmd}")
