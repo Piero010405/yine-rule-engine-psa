@@ -33,6 +33,9 @@ class NegativesConfig:
     k_max: int
     ratio_target: float
     seed: int
+    col_pair_id: str
+    col_source_text: str
+    col_target_text: str
 
 
 def load_split(path: str) -> dict:
@@ -72,9 +75,9 @@ def generate_negatives(cfg: NegativesConfig) -> dict:
         if len(all_samples) >= max_negatives_allowed:
             break
 
-        pair_id = row["pair_id"]
-        source_text = str(row["source_text"])
-        target_text = str(row["target_text"])
+        pair_id = row[cfg.col_pair_id]
+        source_text = str(row[cfg.col_source_text])
+        target_text = str(row[cfg.col_target_text])
         split_label = split_idx.get(pair_id)
 
         if split_label is None:

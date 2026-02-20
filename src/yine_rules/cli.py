@@ -179,15 +179,18 @@ def main():
         log.info("Loaded generators: %s", loaded)
 
         cfg = NegativesConfig(
-            positive_parquet=ng["positive_parquet"],
-            split_json=ng["split_json"],
-            output_root=ng["output_root"],
-            rules_enabled=ng["rules_enabled"],
-            k_min=ng["k_min"],
-            k_max=ng["k_max"],
-            ratio_target=ng["ratio_target"],
-            seed=ng["seed"],
-        )
+                positive_parquet=ng["positive_parquet"],
+                split_json=ng["split_json"],
+                output_root=ng["output_root"],
+                rules_enabled=ng["rules_enabled"],
+                k_min=ng["k_min"],
+                k_max=ng["k_max"],
+                ratio_target=ng["ratio_target"],
+                seed=ng["seed"],
+                col_pair_id=ng["columns"]["pair_id"],
+                col_source_text=ng["columns"]["source_text"],
+                col_target_text=ng["columns"]["target_text"],
+            )
         summary = generate_negatives(cfg)
         log.info("gen-negatives OK: total=%s", summary["total"])
         return
