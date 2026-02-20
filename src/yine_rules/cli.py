@@ -16,6 +16,7 @@ from yine_rules.preprocessing.conditioning_pipeline import run_conditioning
 from yine_rules.datasets.freeze_positive import freeze_positive, FreezeConfig
 from yine_rules.datasets.splits import make_splits, SplitConfig
 from yine_rules.negatives.engine import generate_negatives, NegativesConfig
+from yine_rules.negatives.load_generators import load_generators_from_rules_yaml
 
 log = logging.getLogger("yine_rules")
 
@@ -102,7 +103,10 @@ def build_parser() -> argparse.ArgumentParser:
     # ---------------------------
     # gen-negatives
     # ---------------------------
-    neg_parser = subparsers.add_parser("gen-negatives", help="Generate negative samples (rules plugged in registry)")
+    neg_parser = subparsers.add_parser(
+        "gen-negatives",
+        help="Generate negative samples (rules plugged in registry)"
+    )
     neg_parser.add_argument(
         "--exp-config",
         type=str,
@@ -168,11 +172,21 @@ def main():
         exp = yaml.safe_load(Path(args.exp_config).read_text(encoding="utf-8"))
         ng = exp["negatives_v1"]
 
+        loaded = load_generators_from_rules_yaml(
+            ng["rules_yaml"],
+            seed=ng.get("seed", 42)
+        )
+        log.info("Loaded generators: %s", loaded)
+
         cfg = NegativesConfig(
             positive_parquet=ng["positive_parquet"],
             split_json=ng["split_json"],
             output_root=ng["output_root"],
             rules_enabled=ng["rules_enabled"],
+            k_min=ng["k_min"],
+            k_max=ng["k_max"],
+            ratio_target=ng["ratio_target"],
+            seed=ng["seed"],
         )
         summary = generate_negatives(cfg)
         log.info("gen-negatives OK: total=%s", summary["total"])

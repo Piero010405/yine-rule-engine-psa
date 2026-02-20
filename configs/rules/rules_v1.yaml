@@ -1,0 +1,17 @@
+rules:
+  - rule_id: "R8"
+    name: "Spanish determiner interference"
+    group: "lexico-functional"
+    violation_type: "lexical"
+    severity: 0.6
+    enabled: true
+
+    resources_required:
+      determiners_es: "resources/lexicons/determiners_es.yaml"
+
+    generation:
+      categories:
+        - articulos
+        - posesivos
+        - demostrativos
+      injection_rate: 0.35

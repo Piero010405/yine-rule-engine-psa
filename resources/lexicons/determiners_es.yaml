@@ -1,0 +1,41 @@
+# Lista completa de determinantes del español (RAE)
+# Clasificados para control de interferencia lingüística
+determinantes_espanol:
+  articulos:
+    definidos: [el, la, los, las]
+    indefinidos: [un, una, unos, unas]
+    contractos: [al, del]
+    neutro: [lo]
+
+  demostrativos:
+    cerca: [este, esta, estos, estas]
+    distancia_media: [ese, esa, esos, esas]
+    lejos: [aquel, aquella, aquellos, aquellas]
+
+  posesivos:
+    un_poseedor: [mi, mis, tu, tus, su, sus]
+    varios_poseedores: [nuestro, nuestra, nuestros, nuestras, vuestro, vuestra, vuestros, vuestras]
+    formas_plenas: [mío, mía, míos, mías, tuyo, tuya, tuyos, tuyas, suyo, suya, suyos, suyas]
+
+  cuantificadores:
+    numerales_cardinales: [un, uno, dos, tres, diez, cien, mil] # y sucesivos
+    numerales_ordinales: [primer, primero, primera, segundo, tercer, tercero]
+    numerales_multiplicativos: [doble, triple, cuádruple]
+    numerales_fraccionarios: [medio, media, tercio]
+    indefinidos:
+      - algún, alguna, algunos, algunas
+      - ningún, ninguna, ningunos, ningunas
+      - cualquier, cualquiera, cualesquiera
+      - cierto, cierta, ciertos, ciertas
+      - otro, otra, otros, otras
+      - mucho, mucha, muchos, muchas
+      - poco, poca, pocos, pocas
+      - bastante, bastantes
+      - demasiado, demasiada, demasiados, demasiadas
+      - todo, toda, todos, todas
+      - cada
+      - sendos, sendas
+
+  relativos_interrogativos_exclamativos:
+    relativos: [cuyo, cuya, cuyos, cuyas, cuanto, cuanta, cuantos, cuantas]
+    interrogativos_exclamativos: [qué, cuánto, cuánta, cuántos, cuántas]
