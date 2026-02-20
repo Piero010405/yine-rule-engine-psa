@@ -1,0 +1,9 @@
+negatives_v1:
+  positive_parquet: "data/processed/positive/positive_corpus.v1.parquet"
+  split_json: "data/processed/splits/split_v1.json"
+  output_root: "data/processed/negatives/v1"
+
+  # scaffolding: aún sin reglas implementadas
+  rules_enabled: ["R1","R2","R3","R4","R5","R6","R7","R8"]
+  per_positive_k: 4
+  seed: 42

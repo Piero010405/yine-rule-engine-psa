@@ -1,0 +1,13 @@
+dataset_v1:
+  input_cleaned_parquet: "data/interim/full_corpus.cleaned.parquet"
+  output_positive_parquet: "data/processed/positive/positive_corpus.v1.parquet"
+  output_manifest_yaml: "data/processed/positive/manifest.v1.yaml"
+
+  columns:
+    source_text: "spanish"
+    target_text: "yine"
+    source_tag: "source"
+
+  ids:
+    algo: "sha1"
+    fields: ["spanish", "yine", "source"]

@@ -89,7 +89,7 @@ def run_conditioning(settings: dict) -> None:
     log.info("Structural cleanup done.")
 
     df_norm = df_cleaned_struct
-    
+
     # FILTER
     df_filt, filt_report, removed_df = apply_filters(
         df=df_norm,
