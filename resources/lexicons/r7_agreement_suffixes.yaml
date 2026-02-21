@@ -1,0 +1,24 @@
+# Rule R7 - Agreement suffix flipping (observable orthography)
+# NOTE: We use corpus-observable approximations for grammar suffixes:
+#   grammar -lɨ/-lo  -> lu/lo
+#   grammar -tɨ/-to  -> tu/to
+#   grammar allomorph -rɨ/-ro -> ru/ro  (kept optional; corpus-driven)
+#
+# This file defines *mutation pairs* for flipping gender on adjective-like tokens.
+r7_agreement_suffixes:
+  pairs:
+    - masc: "lu"
+      fem:  "lo"
+      enabled: true
+
+    - masc: "tu"
+      fem:  "to"
+      enabled: true
+
+    # OPTIONAL: enable only if validation shows these behave like agreement endings
+    - masc: "ru"
+      fem:  "ro"
+      enabled: false
+
+  # Safety: tokens shorter than this won't be considered
+  min_token_len: 4

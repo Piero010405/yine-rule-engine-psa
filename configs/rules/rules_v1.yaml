@@ -11,6 +11,8 @@ rules:
       in Yine nouns that are aligned with Spanish possessed nouns.
       Applies only to Yine nouns that take the PSSD suffix -n after vowel-final stems.
 
+
+
   - rule_id: "R6"
     name: "NP determiner-noun order swap"
     group: "syntactic"
@@ -39,7 +41,22 @@ rules:
     generation:
       strategy: "single_swap"
       max_swaps_per_sentence: 1
-    
+  
+
+
+  - rule_id: "R7"
+    name: "Gender agreement violation in adjective modifiers"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.9
+    enabled: true
+
+    resources_required:
+      adjectives: "resources/lexicons/r7_adjectives_yine.yaml"
+      suffixes: "resources/lexicons/r7_agreement_suffixes.yaml"
+
+
+
   - rule_id: "R8"
     name: "Spanish determiner interference"
     group: "lexico-functional"

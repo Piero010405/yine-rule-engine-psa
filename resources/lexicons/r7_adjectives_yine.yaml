@@ -1,0 +1,26 @@
+# Rule R7 - Seed adjective lexicon (from "Palabras Clave..." list provided by user)
+# Used ONLY as a high-precision filter for validation and generation triggers.
+r7_adjectives_seed:
+  adjectives:
+    - tenolu        # Alto
+    - msterutu      # Bajo
+    - kigleru       # Bien  (ojo: puede ser adverbial en algunos contextos)
+    - kshinikanuru  # Bueno
+    - mowukatu      # Corto
+    - muchkotu      # Débil
+    - majgakotu      # Desobediente
+    - yayixachri    # Enfermo
+    - pomenolu      # Flaco
+    - gichkolu      # Fuerte
+    - kpixwakalu    # Gordo
+    - tsru          # Grande
+    - poyagkakachri # Justo
+    - gowukalu      # Largo
+    - mugletu       # Mal
+    - mshinikanutu  # Malo
+    - kaweyalu      # Mentiroso(a)
+    - kajgakolu     # Obediente
+    - meretu        # Ocioso
+    - mturu         # Pequeño
+    - myayixkatu    # Sano
+    - kamrurewakleru # Trabajador

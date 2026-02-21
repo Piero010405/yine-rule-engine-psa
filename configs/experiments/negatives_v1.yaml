@@ -6,7 +6,7 @@ negatives_v1:
 
   # scaffolding: aún sin reglas implementadas
   # rules_enabled: ["R4","R6","R7","R8"]
-  rules_enabled: ["R4", "R6", "R8"]
+  rules_enabled: ["R4", "R6", "R7", "R8"]
   
   k_min: 1
   k_max: 3
