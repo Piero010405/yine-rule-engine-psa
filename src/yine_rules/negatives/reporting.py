@@ -17,6 +17,11 @@ def export_negatives(samples, out_dir: str | Path) -> dict:
 
     if samples:
         df = pd.DataFrame([asdict(s) for s in samples])
+
+        # ---- HARD DEDUPLICATION SAFETY ----
+        df = df.drop_duplicates(
+            subset=["pair_id", "rule_id", "negative_text"]
+        ).reset_index(drop=True)
     else:
         df = pd.DataFrame(
             columns=[

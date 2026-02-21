@@ -86,12 +86,14 @@ def generate_negatives(cfg: NegativesConfig) -> dict:
         # sample k
         k = rng.randint(cfg.k_min, cfg.k_max)
 
-        # choose rules uniformly
-        for _ in range(k):
+        # choose rules without repetition per pair
+        available_rules = list(cfg.rules_enabled)
+        rng.shuffle(available_rules)
+
+        for rule_id in available_rules[:k]:
             if len(all_samples) >= max_negatives_allowed:
                 break
 
-            rule_id = rng.choice(cfg.rules_enabled)
             generator = get_generator(rule_id)
 
             samples = generator.generate(
@@ -101,7 +103,6 @@ def generate_negatives(cfg: NegativesConfig) -> dict:
                 split=split_label,
             )
 
-            # avoid duplicates per pair
             for s in samples:
                 if len(all_samples) >= max_negatives_allowed:
                     break
