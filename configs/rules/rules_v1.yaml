@@ -5,6 +5,40 @@ rules:
     violation_type: "morphological"
     severity: 0.9
     enabled: true
+
+    description: >
+      Generates a morphological violation by omitting the possessive suffix
+      in Yine nouns that are aligned with Spanish possessed nouns.
+      Applies only to Yine nouns that take the PSSD suffix -n after vowel-final stems.
+
+  - rule_id: "R6"
+    name: "NP determiner-noun order swap"
+    group: "syntactic"
+    violation_type: "syntactic"
+    severity: 0.8
+    enabled: true
+
+    description: >
+      Generates a syntactic violation by swapping the canonical order
+      of determiner and noun in simple noun phrases.
+      Applies only to Yine articles 'satu' and 'sato'
+      when aligned with Spanish definite or indefinite articles.
+
+    resources_required:
+      yine_determiners: "resources/lexicons/yine_determiners.yaml"
+      determiners_es: "resources/lexicons/determinantes_es.yaml"
+
+    constraints:
+      - Spanish sentence must contain a definite or indefinite article.
+      - Yine must contain pattern: satu|sato + N
+      - N must have length >= 3.
+      - Only first occurrence per sentence is modified.
+      - No modification of discourse particle 'wa'.
+      - No modification of marginal determiner 'pa'.
+
+    generation:
+      strategy: "single_swap"
+      max_swaps_per_sentence: 1
     
   - rule_id: "R8"
     name: "Spanish determiner interference"
@@ -12,6 +46,11 @@ rules:
     violation_type: "lexical"
     severity: 0.6
     enabled: true
+
+    description: >
+      Generates a lexico-functional violation by injecting a Spanish determiner
+      into the Yine sentence, creating an interference error.
+      The injected determiner is randomly selected from the same category as a Spanish determiner found in the source sentence.
 
     resources_required:
       determiners_es: "resources/lexicons/determiners_es.yaml"

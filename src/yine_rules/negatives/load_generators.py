@@ -10,12 +10,14 @@ from yine_rules.negatives.registry import register
 
 # Import all generator classes here
 from yine_rules.negatives.generators.r4_pssd_omission import R4PSSDOmission
+from yine_rules.negatives.generators.r6_np_det_swap import R6DeterminantSwap
 from yine_rules.negatives.generators.r8_spanish_determiner import R8SpanishDeterminerInjection
 
 
 # Central rule → class mapping
 GENERATOR_CLASSES = {
     "R4": R4PSSDOmission,
+    "R6": R6DeterminantSwap,
     "R8": R8SpanishDeterminerInjection,
 }
 
@@ -51,6 +53,15 @@ def load_generators_from_rules_yaml(rules_yaml_path: str, seed: int = 42) -> lis
                 prefixes_path="resources/lexicons/possessive_prefixes_yine.yaml",
                 pssd_path="resources/lexicons/pssd_suffixes.yaml",
                 severity=r.get("severity", 0.9),
+                seed=seed,
+            )
+
+        # ---------- R6 ----------
+        elif rid == "R6":
+            gen = cls(
+                yine_dets_path="resources/lexicons/yine_determiners.yaml",
+                spanish_dets_path="resources/lexicons/determinantes_es.yaml",
+                severity=r.get("severity", 0.8),
                 seed=seed,
             )
 
