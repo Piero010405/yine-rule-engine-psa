@@ -1,5 +1,5 @@
 """
-Load negative generators from rules YAML config.
+Dynamic loader for negative generators.
 """
 
 from __future__ import annotations
@@ -8,15 +8,23 @@ import yaml
 
 from yine_rules.negatives.registry import register
 
-## Import generator classes
+# Import all generator classes here
 from yine_rules.negatives.generators.r4_pssd_omission import R4PSSDOmission
-from yine_rules.negatives.generators.r8_spanish_determiner import (
-    R8SpanishDeterminerInjection,
-)
+from yine_rules.negatives.generators.r8_spanish_determiner import R8SpanishDeterminerInjection
+
+
+# Central rule → class mapping
+GENERATOR_CLASSES = {
+    "R4": R4PSSDOmission,
+    "R8": R8SpanishDeterminerInjection,
+}
 
 
 def load_generators_from_rules_yaml(rules_yaml_path: str, seed: int = 42) -> list[str]:
-    """Load negative generators from rules YAML config."""
+    """
+    Load generators from a YAML file.
+    """
+
     data = yaml.safe_load(Path(rules_yaml_path).read_text(encoding="utf-8"))
     rules = data.get("rules", [])
 
@@ -31,34 +39,37 @@ def load_generators_from_rules_yaml(rules_yaml_path: str, seed: int = 42) -> lis
 
         rid = r.get("rule_id")
 
+        if rid not in GENERATOR_CLASSES:
+            raise ValueError(f"Generator class not registered for rule: {rid}")
+
+        cls = GENERATOR_CLASSES[rid]
+
+        # ---------- R4 ----------
         if rid == "R4":
-            gen = R4PSSDOmission(
+            gen = cls(
                 posesivos_path="resources/lexicons/posesivos_es.yaml",
                 prefixes_path="resources/lexicons/possessive_prefixes_yine.yaml",
                 pssd_path="resources/lexicons/pssd_suffixes.yaml",
                 severity=r.get("severity", 0.9),
                 seed=seed,
             )
-            register(gen)
-            loaded.append("R4")
 
-        if rid == "R8":
-            det_path = r["resources_required"]["determiners_es"]
-            sev = r.get("severity", 0.6)
-
+        # ---------- R8 ----------
+        elif rid == "R8":
             gen_cfg = r.get("generation", {})
-            categories = gen_cfg.get("categories", [])
-            inj_rate = gen_cfg.get("injection_rate", 0.35)
 
-            generator = R8SpanishDeterminerInjection(
-                determiners_path=det_path,
-                categories=categories,
-                severity=sev,
-                injection_rate=inj_rate,
+            gen = cls(
+                determiners_path=r["resources_required"]["determiners_es"],
+                categories=gen_cfg.get("categories", []),
+                severity=r.get("severity", 0.6),
+                injection_rate=gen_cfg.get("injection_rate", 0.35),
                 seed=seed,
             )
 
-            register(generator)
-            loaded.append("R8")
+        else:
+            raise ValueError(f"Unhandled rule_id: {rid}")
+
+        register(gen)
+        loaded.append(rid)
 
     return loaded
