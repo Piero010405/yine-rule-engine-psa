@@ -7,6 +7,9 @@ from pathlib import Path
 import yaml
 
 from yine_rules.negatives.registry import register
+
+## Import generator classes
+from yine_rules.negatives.generators.r4_pssd_omission import R4PSSDOmission
 from yine_rules.negatives.generators.r8_spanish_determiner import (
     R8SpanishDeterminerInjection,
 )
@@ -27,6 +30,17 @@ def load_generators_from_rules_yaml(rules_yaml_path: str, seed: int = 42) -> lis
             continue
 
         rid = r.get("rule_id")
+
+        if rid == "R4":
+            gen = R4PSSDOmission(
+                posesivos_path="resources/lexicons/posesivos_es.yaml",
+                prefixes_path="resources/lexicons/possessive_prefixes_yine.yaml",
+                pssd_path="resources/lexicons/pssd_suffixes.yaml",
+                severity=r.get("severity", 0.9),
+                seed=seed,
+            )
+            register(gen)
+            loaded.append("R4")
 
         if rid == "R8":
             det_path = r["resources_required"]["determiners_es"]

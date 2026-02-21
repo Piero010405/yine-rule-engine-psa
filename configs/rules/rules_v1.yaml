@@ -1,4 +1,11 @@
 rules:
+  - rule_id: "R4"
+    name: "PSSD omission in possessed nouns"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.9
+    enabled: true
+    
   - rule_id: "R8"
     name: "Spanish determiner interference"
     group: "lexico-functional"
