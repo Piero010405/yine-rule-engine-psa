@@ -60,7 +60,7 @@ def load_generators_from_rules_yaml(rules_yaml_path: str, seed: int = 42) -> lis
         elif rid == "R6":
             gen = cls(
                 yine_dets_path="resources/lexicons/yine_determiners.yaml",
-                spanish_dets_path="resources/lexicons/determinantes_es.yaml",
+                spanish_dets_path="resources/lexicons/determiners_es.yaml",
                 severity=r.get("severity", 0.8),
                 seed=seed,
             )
