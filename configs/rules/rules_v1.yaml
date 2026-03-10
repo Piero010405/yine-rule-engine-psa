@@ -29,7 +29,7 @@ rules:
     resources_required:
       yine_determiners: "resources/lexicons/yine_determiners.yaml"
       determiners_es: "resources/lexicons/determiners_es.yaml"
-
+  
     constraints:
       - Spanish sentence must contain a definite or indefinite article.
       - Yine must contain pattern: satu|sato + N

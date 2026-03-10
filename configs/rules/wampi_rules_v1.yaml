@@ -1,0 +1,116 @@
+rules:
+
+  - rule_id: "W1"
+    name: "Possessive prefix omission"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.95
+    enabled: true
+
+    description: >
+      Generates a morphological violation by removing the possessive prefix
+      from Wampis nouns aligned with Spanish possessive constructions.
+
+    resources_required:
+      possessive_prefixes: "resources/lexicons/wampis_possessive_prefixes.yaml"
+
+    constraints:
+      - Token must start with a known Wampis possessive prefix.
+      - Noun length must be >= 3.
+      - Only first occurrence per sentence is modified.
+
+    generation:
+      strategy: "prefix_removal"
+      max_modifications_per_sentence: 1
+
+
+  - rule_id: "W2"
+    name: "Incorrect possessive prefix substitution"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.9
+    enabled: true
+
+    description: >
+      Generates a morphological violation by replacing the correct possessive
+      prefix with another possessive prefix that does not match the possessor.
+
+    resources_required:
+      possessive_prefixes: "resources/lexicons/wampis_possessive_prefixes.yaml"
+
+    constraints:
+      - Token must start with a known possessive prefix.
+      - Replacement prefix must be different from the original.
+
+    generation:
+      strategy: "prefix_substitution"
+      max_modifications_per_sentence: 1
+
+
+  - rule_id: "W3"
+    name: "Verbal person marker omission"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.9
+    enabled: true
+
+    description: >
+      Generates a morphological violation by removing the verbal person
+      marker suffix from Wampis verbs.
+
+    resources_required:
+      person_markers: "resources/lexicons/wampis_person_markers.yaml"
+
+    constraints:
+      - Token must end with a known person marker.
+      - Only one verb per sentence is modified.
+
+    generation:
+      strategy: "suffix_removal"
+      max_modifications_per_sentence: 1
+
+
+  - rule_id: "W4"
+    name: "Verbal number agreement violation"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.9
+    enabled: true
+
+    description: >
+      Generates a morphological violation by replacing a verbal number marker
+      with another marker that does not match the subject number.
+
+    resources_required:
+      number_markers: "resources/lexicons/wampis_number_markers.yaml"
+
+    constraints:
+      - Token must contain a number marker.
+      - Replacement marker must differ from the original.
+
+    generation:
+      strategy: "marker_substitution"
+      max_modifications_per_sentence: 1
+
+
+  - rule_id: "W5"
+    name: "Verbal tense suffix deletion"
+    group: "morphological"
+    violation_type: "morphological"
+    severity: 0.85
+    enabled: true
+
+    description: >
+      Generates a morphological violation by removing the tense or aspect
+      suffix from Wampis verbs.
+
+    resources_required:
+      tense_suffixes: "resources/lexicons/wampis_tense_suffixes.yaml"
+
+    constraints:
+      - Token must end with a known tense suffix.
+      - Only one verb per sentence is modified.
+
+    generation:
+      strategy: "suffix_removal"
+      max_modifications_per_sentence: 1
